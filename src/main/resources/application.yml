@@ -1,0 +1,51 @@
+server:
+  port: 1301
+  tomcat:
+  maxHttpPostSize: 20971520
+spring:
+#  jpa:
+#    generate-ddl: false
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: none
+#  datasource:
+#    platform: mysql
+#    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=true
+#    username: root
+#    password: 123456
+#    driver-class-name: com.mysql.jdbc.Driver
+  cloud:
+    inetutils:
+      preferred-networks: 10.0.3
+
+  application:
+    name: microservice-jiayibilin-app
+  profiles:
+    active: test
+
+  http:
+    multipart:
+       enabled: true
+       max-file-size: 100MB
+       max-request-size: 100MB
+
+logging:
+  level:
+    root: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    com.itmuch: DEBUG
+
+eureka:
+  client:
+    serviceUrl:
+      #defaultZone: http://XieJie:XieJie@172.18.55.16:1001/eureka/
+      defaultZone: http://XieJie:XieJie@eureka-server:1001/eureka/
+
+  instance:
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    prefer-ip-address: true
+
+jwt:
+    key : ZhaoYin2017

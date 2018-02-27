@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>登录认证</title>
+	<script src="//cdn.bootcss.com/angular.js/1.5.6/angular.min.js"></script>
+	<script type="text/javascript">
+		/*<![CDATA[*/
+		var app = angular.module('app', []);
+		app.controller('MainController', function($rootScope, $scope, $http) {
+			$scope.message = '';
+			$scope.account = '';
+			$scope.password = '';
+
+			//登录
+			$scope.login = function () {
+				$scope.message = '';
+				$http(
+						{
+							url: '/loginPost',
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/x-www-form-urlencoded'
+							},
+							data: 'account=' + $scope.account + '&password='
+							+ $scope.password
+						}).success(function (r) {
+					if (!r.success) {
+						$scope.message = r.message;
+						return;
+					}
+					window.location.href = '/';
+				});
+			}
+		});
+
+		/*]]>*/
+	</script>
+</head>
+<body ng-app="app" ng-controller="MainController">
+
+
+<table cellspacing="1" style="background-color: #a0c6e5">
+	<tr>
+		<td>账号：</td>
+		<td><input ng-model="account" /></td>
+	</tr>
+	<tr>
+		<td>密码：</td>
+		<td><input type="password" ng-model="password" /></td>
+	</tr>
+</table>
+<input type="button" value="登录" ng-click="login()" />
+<form name="form2" id="regUser" accept-charset="utf-8"  action="/register" method="post">
+	<input type="submit" id="reg"  style="margin-top:10px;margin-left:85px;" class="button_blue" value="同意协议并注册"/>
+</form>
+<a href="/register" class="zcxy" target="_blank">注册</a>
+<br />
+<font color="red" ng-show="message">{{message}}</font>
+
+</body>
+</html>
