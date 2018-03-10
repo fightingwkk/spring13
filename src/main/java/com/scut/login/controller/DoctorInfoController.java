@@ -82,18 +82,29 @@ public class DoctorInfoController {
     }
 
     /**
-     * 医师执业证上传
+     * 医师执业证上传到阿里云
      * @param request
      * @param response
      * @param
      * @return
      */
-    @RequestMapping(value = "practiceimagUpload",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
-    public ResponseEntity<String> practiceimagUpload(HttpServletRequest request, HttpServletResponse response,@RequestParam(value="file")MultipartFile file){
+    @RequestMapping(value = "practiceimageUploadali",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    public ResponseEntity<String> practiceimageUploadali(HttpServletRequest request, HttpServletResponse response,@RequestParam(value="file")MultipartFile file){
 
-        return doctorInfo.practiceimagUpload(request,response,file);
+        return doctorInfo.practiceimageUploadali(request,response,file);
     }
+    /**
+     * 医师执业证上传数据库
+     * @param request
+     * @param response
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "practiceimagUploaddb",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    public ResponseEntity<String> practiceimagUploadDB(HttpServletRequest request, HttpServletResponse response,@RequestBody Map<String,String> map){
 
+        return doctorInfo.practiceimagUploadDB(request,response,map);
+    }
     /**
      * 获取医生个人信息
      * @param request
@@ -166,5 +177,26 @@ public class DoctorInfoController {
 //        return JSONUtils.valueToString(returnMap);
 //    }
 
+    /**
+     * 医生提交反馈
+     * @param request
+     * @param response
+     * @param map
+     * @return
+     */
+    @RequestMapping(value = "doctorFeedback",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    public ResponseEntity<String> doctorFeedback(HttpServletRequest request,HttpServletResponse response,@RequestBody Map<String,String> map){
+        return doctorInfo.doctorFeedback(request,response,map);
+    }
 
+    /**
+     * 医生获取软件
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "doctorSoftware",method = RequestMethod.POST,produces="application/json;charset=UTF-8")
+    public ResponseEntity<String> doctorSoftware(HttpServletRequest request,HttpServletResponse response){
+        return doctorInfo.doctorSoftware(request);
+    }
 }

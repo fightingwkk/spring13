@@ -470,7 +470,6 @@ public class MyPatient {
         String wechat_id = map.get("wechat_id").toString();
         String timearea = map.get("timearea").toString();
         String time = map.get("time").toString();
-        System.out.println(wechat_id);
         try{
             
             if(!jwt.isExist(token)){
@@ -510,6 +509,44 @@ public class MyPatient {
             return ResponseUtil.unKonwException();
         }
     }
+
+//获取心电图
+    public ResponseEntity<String> getCardiogram(HttpServletRequest request,Map<String,Object> map){
+        //获取token，验证token
+        String token = request.getHeader("Authorization");
+        String wechat_id = map.get("wechat_id").toString();
+        try{
+            if(!jwt.isExist(token)){
+                logger.error("token不存在");
+                return ResponseUtil.TOKENexception("您的登录权限已失效，请重新登录");            }
+            //获取token中的信息
+            Claims claims = jwt.parseJWT(token);
+            String doctor = claims.getSubject();
+            JSONObject jobj= JSON.parseObject(doctor);
+            String phone=jobj.get("phone").toString();
+
+            //获取心电图
+            List<CardiogramEntity> list = userDao.getCardiogram(wechat_id);
+            if (list != null && !list.isEmpty()){
+                JSONObject jo = new JSONObject();
+                jo.put("Cardiogram",list);
+                logger.info(phone + "-getCardiogram: 获取心电图记录");
+                return ResponseUtil.success(jo);
+            }else{
+                logger.warn(phone + "-getCardiogram: 心电图记录为空");
+                return ResponseUtil.success(null);
+            }
+
+        }catch (ExpiredJwtException e){
+            logger.error("getCardiogram: "+ e);
+            userDao.delete(token);
+            return ResponseUtil.TOKENexception("您的登录权限已过期，请重新登录");
+        }catch (Exception e){
+            logger.error("getCardiogram: "+ e);
+            return ResponseUtil.unKonwException();
+        }
+    }
+
 
     public ResponseEntity<String> getRiskReport(HttpServletRequest request,Map<String,String> map){
         //获取token，验证token
@@ -589,6 +626,56 @@ public class MyPatient {
         }catch (Exception e){
             logger.error("defineMessage: "+ e);
             return ResponseUtil.exception(e.getMessage());
+        }
+    }
+
+    /**
+     * 医生发送模板消息
+     * @param request
+     * @param map
+     * @return
+     */
+    public ResponseEntity<String> messageRemind(HttpServletRequest request,Map<String,String>map){
+        //获取token，验证token
+        String token = request.getHeader("Authorization");
+        try{
+            if(!jwt.isExist(token)){
+                logger.error("token不存在");
+                return ResponseUtil.TOKENexception("您的登录权限已失效，请重新登录");            }
+            //获取token中的信息
+            Claims claims = jwt.parseJWT(token);
+            String doctor = claims.getSubject();
+            JSONObject jobj= JSON.parseObject(doctor);
+            String phone=jobj.get("phone").toString();
+
+            String wechat_id = map.get("wechat_id");
+            String title = map.get("title");
+            String target = map.get("target");
+            String remark = map.get("remark");
+            String period = map.get("period");
+            MessageRemindEntity messageRemindEntity = new MessageRemindEntity();
+            messageRemindEntity.setPhone(phone);
+            messageRemindEntity.setWechat_id(wechat_id);
+            messageRemindEntity.setTitle(title);
+            messageRemindEntity.setRemark(remark);
+            messageRemindEntity.setTarget(target);
+            messageRemindEntity.setPeriod(Integer.valueOf(period));
+
+            String state = userDao.saveMessageRemind(messageRemindEntity);
+            if(state.equals("success")){
+                logger.info(phone + "-messageRemind: 发送模板消息成功");
+                return ResponseUtil.success("发送模板消息成功");
+            }else{
+                logger.warn(phone + "-messageRemind: 发送模板消息失败");
+                return ResponseUtil.exception("发送模板消息失败");
+            }
+        }catch (ExpiredJwtException e){
+            logger.error("messageRemind: "+ e);
+            userDao.delete(token);
+            return ResponseUtil.TOKENexception("您的登录权限已过期，请重新登录");
+        }catch (Exception e){
+            logger.error("messageRemind: "+ e);
+            return ResponseUtil.unKonwException();
         }
     }
 }

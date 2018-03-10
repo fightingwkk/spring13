@@ -125,6 +125,17 @@ public class MyPatientContoller {
     }
 
     /**
+     * 获取心电图
+     * @param request
+     * @param map
+     * @return
+     */
+    @RequestMapping(value = "getCardiogram",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+    public ResponseEntity<String> getCardiogram(HttpServletRequest request,@RequestBody Map<String,Object> map){
+        return myPatient.getCardiogram(request,map);
+    }
+
+    /**
      * 获取风险评估报告
      * @param request
      * @param map
@@ -144,5 +155,16 @@ public class MyPatientContoller {
     @RequestMapping(value = "defineMessage",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
     public ResponseEntity<String> defineMessage(HttpServletRequest request,@RequestBody Map<String,String>map){
         return myPatient.defineMessage(request, map);
+    }
+
+    /**
+     * 医生发送模板消息
+     * @param request
+     * @param map
+     * @return
+     */
+    @RequestMapping(value = "messageRemind",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+    public ResponseEntity<String> messageRemind(HttpServletRequest request,@RequestBody Map<String,String>map){
+        return myPatient.messageRemind(request, map);
     }
 }

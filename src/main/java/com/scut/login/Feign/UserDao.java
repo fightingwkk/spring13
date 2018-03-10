@@ -28,7 +28,7 @@ public interface UserDao {
     @RequestMapping(value = "/doctor/savephonetoken", method = RequestMethod.POST)
     String savephonetoken(@RequestParam("token") String token, @RequestParam("phone") String phone);
 
-    @RequestMapping(value = "/doctor/selecttoken", method = RequestMethod.POST)
+    @RequestMapping(value = "/doctor/selecttoken", method = RequestMethod.GET)
     String isExist(@RequestParam("token") String token);
 
     @RequestMapping(value = "/doctor/deletetoken", method = RequestMethod.POST)
@@ -103,11 +103,19 @@ public interface UserDao {
     @RequestMapping(value = "/healthmanage/getbloodpressuretable")
     List<BloodPressureEntity> getBloodPressureTable(@RequestParam("wechat_id") String wechat_id, @RequestParam("timearea") int timearea, @RequestParam("time") String time);
 
+    //获取心电图
+    @RequestMapping(value = "/healthmanage/findcardiogramtable")
+    List<CardiogramEntity> getCardiogram(@RequestParam("wechat_id") String wechat_id);
+
     @RequestMapping(value = "/healthmanage/report/getall")
     List<RiskReportEntity> getAllReport(@RequestBody String wechat_id);
 
     @RequestMapping(value = "/healthmanage/definemessage",method = RequestMethod.POST)
     String definemessage(@RequestBody DefinitionMessageEntity definitionMessageEntity);
+
+    //医生发送模板消息
+    @RequestMapping(value = "/healthmanage/savemessageremind",method = RequestMethod.POST)
+    String saveMessageRemind(@RequestBody MessageRemindEntity messageRemindEntity);
     /*
 	*发起留言和回复
 	 */
@@ -145,4 +153,12 @@ public interface UserDao {
 
     @RequestMapping(value = "/doctor/geteventremindunread")
     int getEvenRemindUnread(@RequestParam("phone") String phone);
+
+    //医生提交建议借口
+    @RequestMapping(value = "/doctor/suggestion/add", method = RequestMethod.POST)
+    String addSuggestion(@RequestBody SuggestionEntity suggestionEntity);
+
+    //医生获取软件
+    @RequestMapping(value = "/doctor/software/get", method = RequestMethod.GET)
+    SoftwareEntity getSoftware();
     }
