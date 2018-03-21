@@ -62,7 +62,6 @@ public class MyPatient {
             if (label != null && !label.equals("")){
                  Label = Arrays.asList(label.split(","));
             };
-            System.out.println(Label);
 
             if(kind == null || kind.equals("")){
                 kind = "";

@@ -83,22 +83,23 @@ public class UserService {
             int evaluationUnread = userDao.getEvaluationUnread(phone);
 //			String refreshToken = jwt.createJWT(Constant.JWT_ID, subject, Constant.JWT_REFRESH_TTL);
             JSONObject jo = new JSONObject();
-            DoctorEntity DoctorEntity = userDao.info(phone);
-            if (DoctorEntity == null){
+            DoctorEntity doctorEntity = userDao.info(phone);
+            if (doctorEntity == null){
                 logger.error(phone + "-login: 医生实体未取到");
                 return ResponseUtil.exception("登录失败");
             }
-            jo.put("name", DoctorEntity.getName());
-            jo.put("hospital", DoctorEntity.getHospital());
-            jo.put("department", DoctorEntity.getDepartment());
-            jo.put("title", DoctorEntity.getTitle());
-            jo.put("verify", DoctorEntity.getVerify());
-            jo.put("head_pic", DoctorEntity.getHead_pic());
+            jo.put("name", doctorEntity.getName());
+            jo.put("hospital", doctorEntity.getHospital());
+            jo.put("department", doctorEntity.getDepartment());
+            jo.put("title", doctorEntity.getTitle());
+            jo.put("verify", doctorEntity.getVerify());
+            jo.put("head_pic", doctorEntity.getHead_pic());
             jo.put("evaluationUnread", evaluationUnread);
-            jo.put("adept",DoctorEntity.getAdept());
-            jo.put("experience",DoctorEntity.getExperience());
-            jo.put("QRcode_pic",DoctorEntity.getQRcode_pic());
+            jo.put("adept",doctorEntity.getAdept());
+            jo.put("experience",doctorEntity.getExperience());
+            jo.put("QRcode_pic",doctorEntity.getQRcode_pic());
             jo.put("token", token);
+            jo.put("phone", doctorEntity.getPhone());
 //			jo.put("refreshToken", refreshToken);
             logger.info(phone + "-login: 登录成功");
             return ResponseUtil.success(jo);

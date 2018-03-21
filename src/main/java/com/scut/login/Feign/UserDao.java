@@ -92,7 +92,7 @@ public interface UserDao {
     PatientEntity getPatient(@RequestParam("wechat_id")String wechat_id);
 
     @RequestMapping(value = "/doctor/service", method = RequestMethod.GET)
-    List<ServiceEntity> getService();
+    List<DoctorServiceEntity> getService(@RequestParam("phone") String phone);
 
     @RequestMapping(value = "/healthmanage/gethealthtable",method = RequestMethod.GET)
     HealthCheckEntity getHealthTable(@RequestParam("wechat_id") String wechat_id);

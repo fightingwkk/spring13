@@ -1,12 +1,10 @@
 package com.scut.login.service;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.scut.login.Feign.UserDao;
-import com.scut.login.entity.DoctorGroupSendingEntity;
-import com.scut.login.entity.MessageBoardEntity;
-import com.scut.login.entity.RemindersEntity;
-import com.scut.login.entity.ServiceEntity;
+import com.scut.login.entity.*;
 import com.scut.login.util.JwtUtil;
 import com.scut.login.util.ResponseUtil;
 import io.jsonwebtoken.Claims;
@@ -52,7 +50,7 @@ public class Index {
             JSONObject jobj = JSON.parseObject(doctor);
             String phone = jobj.get("phone").toString();
 
-            List<ServiceEntity> getSerice = userDao.getService();
+            List<DoctorServiceEntity> getSerice = userDao.getService(phone);
             if (getSerice !=null && !getSerice.isEmpty()){
                 JSONObject jo = new JSONObject();
                 jo.put("data",getSerice);
@@ -236,8 +234,11 @@ public class Index {
     public ResponseEntity<String> groupSending(HttpServletRequest request,Map<String,String> map){
         String token = request.getHeader("Authorization");
         String content =map.get("content");
-        String group_name = map.get("group_name");
-        int type = Integer.parseInt(map.get("type"));
+        String group_names = map.get("group_names");
+        String kind_names = map.get("kinds_names");
+        String patient_names = map.get("patient_names");
+
+
         try{
             if(!jwt.isExist(token)){
                 logger.error("token不存在");
@@ -248,14 +249,12 @@ public class Index {
             JSONObject jobj = JSON.parseObject(doctor);
             String phone = jobj.get("phone").toString();
 
-            if (group_name.equals("未分组")){
-                group_name = "";
-            }
             DoctorGroupSendingEntity doctorGroupSendingEntity = new DoctorGroupSendingEntity();
             doctorGroupSendingEntity.setPhone(phone);
             doctorGroupSendingEntity.setContent(content);
-            doctorGroupSendingEntity.setGroup_name(group_name);
-            doctorGroupSendingEntity.setType(type);
+            doctorGroupSendingEntity.setGroup_names(group_names);
+            doctorGroupSendingEntity.setKind_names(kind_names);
+            doctorGroupSendingEntity.setPatient_names(patient_names);
 
             String state = userDao.groupsending(doctorGroupSendingEntity);
 

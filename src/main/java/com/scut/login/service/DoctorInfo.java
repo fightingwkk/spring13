@@ -106,6 +106,7 @@ public class DoctorInfo {
                 jo.put("experience", doctorEntity.getExperience());
                 jo.put("QRcode_pic", doctorEntity.getQRcode_pic());
                 jo.put("token", newtoken);
+                jo.put("phone", doctorEntity.getPhone());
                 logger.info(phone + "-doctorInfo: 获取医生信息，刷新token");
                 return ResponseUtil.success(jo);
             } else {

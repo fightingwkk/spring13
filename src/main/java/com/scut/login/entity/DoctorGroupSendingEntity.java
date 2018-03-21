@@ -1,11 +1,14 @@
 package com.scut.login.entity;
 /*
+#医生群发消息表
 create table doctor_group_sending(
 id int  not null auto_increment,
-phone varchar(31) not null default '',
-content varchar(255) not null default '',
+phone varchar(31) not null,
+content varchar(255) not null,
 datetime timestamp not null default current_timestamp,
-group_name varchar(31) not null default '',
+group_names varchar(31) not null default '',
+kind_names varchar(31) not null default '',
+patient_names varchar(511),
 delete_status int not null default 0,
 primary key(id)
 )engine=INNODB default charset = utf8;
@@ -17,11 +20,28 @@ public class DoctorGroupSendingEntity {
     private String phone;//医生电话
     private String content;//内容
     private String datetime;//发送时间
-    private String group_name;//发送群组名
+    private String group_names;//发送自定义群组名
+    private String kind_names;//发送等级类型患者
+    private String patient_names;//发送患者名
     private int delete_status;//删除状态
-    private int type;//类型0表示kind  1表示label
 
     public DoctorGroupSendingEntity() {
+    }
+
+    public String getKind_names() {
+        return kind_names;
+    }
+
+    public void setKind_names(String kind_names) {
+        this.kind_names = kind_names;
+    }
+
+    public String getPatient_names() {
+        return patient_names;
+    }
+
+    public void setPatient_names(String patient_names) {
+        this.patient_names = patient_names;
     }
 
     public int getId() {
@@ -56,12 +76,12 @@ public class DoctorGroupSendingEntity {
         this.datetime = datetime;
     }
 
-    public String getGroup_name() {
-        return group_name;
+    public String getGroup_names() {
+        return group_names;
     }
 
-    public void setGroup_name(String group_name) {
-        this.group_name = group_name;
+    public void setGroup_names(String group_namse) {
+        this.group_names = group_names;
     }
 
     public int getDelete_status() {
@@ -72,11 +92,4 @@ public class DoctorGroupSendingEntity {
         this.delete_status = delete_status;
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
 }
