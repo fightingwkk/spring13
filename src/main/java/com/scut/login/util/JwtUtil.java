@@ -89,6 +89,9 @@ public class JwtUtil {
 	 *
 	 */
 	public boolean isExist(String token) {
+		if(token == null){
+			return false;
+		}
 		String isExist = userDao.isExist(token);		//先判断是否存在
 		if(isExist == null){
 			return false;

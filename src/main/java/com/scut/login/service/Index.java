@@ -215,10 +215,10 @@ public class Index {
 
             if (state.equals("success")){
                 logger.info(phone + "-deleteMessageBoard: 删除成功");
-                return ResponseUtil.success("删除成功");
+                return ResponseUtil.success("留言删除成功");
             }else{
-                logger.warn(phone + "-deleteMessageBoard: 删除失败");
-                return ResponseUtil.exception("删除失败");
+                logger.warn(phone + "-deleteMessageBoard: 留言删除失败");
+                return ResponseUtil.exception("留言删除失败");
             }
 
         }catch (ExpiredJwtException e){

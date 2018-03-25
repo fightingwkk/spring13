@@ -144,33 +144,8 @@
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.5" level="project" />
     <orderEntry type="library" name="Maven: org.jdom:jdom:1.1" level="project" />
-    <orderEntry type="module-library">
-      <library name="Maven: aliyun-message-sdk-core:aliyun-message-sdk-core:3.2.3">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/main/resources/lib/aliyun-java-sdk-core-3.2.3.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Maven: aliyun-message-sdk-mns:aliyun-message-sdk-mns:1.1.8">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/main/resources/lib/aliyun-sdk-mns-1.1.8.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Maven: aliyun-java-sdk-dysmsapi:aliyun-java-sdk-dysmsapi:1.0.0">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/main/resources/lib/aliyun-java-sdk-dysmsapi-1.0.0-SANPSHOT.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="Maven: com.aliyun:aliyun-java-sdk-core:3.2.8" level="project" />
+    <orderEntry type="library" name="Maven: com.aliyun:aliyun-java-sdk-dysmsapi:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: net.sf.json-lib:json-lib:jdk15:2.4" level="project" />
     <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.9.3" level="project" />
     <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.2" level="project" />
