@@ -35,8 +35,6 @@ public class UserService {
     @Autowired
     private JwtUtil jwt;
     @Autowired
-    DoctorEntity doctorEntity;
-    @Autowired
     SendMsgService sendMsgService;
     @Autowired
     WechatServer wechatServer;
@@ -64,13 +62,14 @@ public class UserService {
             String verifytoken = userDao.phonetokenselect(phone);
             if (verifytoken != null) {
                 userDao.delete(verifytoken);
-                logger.error(phone + "-login: 请勿重复登录");
-                return ResponseUtil.TOKENexception("请再试一次");
+//                logger.error(phone + "-login: 请勿重复登录");
+//                return ResponseUtil.TOKENexception("请再试一次");
             }
 //			user.setRoleId(1L);
             //生成Token
-            doctorEntity.setPhone(phone);
-            String subject = JwtUtil.generalSubject(doctorEntity);
+            DoctorEntity doctorEntity1 = new DoctorEntity();
+            doctorEntity1.setPhone(phone);
+            String subject = JwtUtil.generalSubject(doctorEntity1);
             String token = jwt.createJWT(Constant.JWT_ID, subject, Constant.JWT_TTL);
             String state = userDao.savephonetoken(token, phone);
             if (state.equals("error")){
@@ -79,7 +78,7 @@ public class UserService {
             }
             Claims claims = jwt.parseJWT(token);
            // System.out.println("now：" + System.currentTimeMillis() + "过期时间：" + claims.getExpiration().getTime());
-            System.out.println("token:" + token);
+//            System.out.println("token:" + token);
             int evaluationUnread = userDao.getEvaluationUnread(phone);
 //			String refreshToken = jwt.createJWT(Constant.JWT_ID, subject, Constant.JWT_REFRESH_TTL);
             JSONObject jo = new JSONObject();

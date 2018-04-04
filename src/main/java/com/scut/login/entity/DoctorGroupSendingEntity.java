@@ -80,7 +80,7 @@ public class DoctorGroupSendingEntity {
         return group_names;
     }
 
-    public void setGroup_names(String group_namse) {
+    public void setGroup_names(String group_names) {
         this.group_names = group_names;
     }
 

@@ -136,6 +136,9 @@ public interface UserDao {
     @RequestMapping(value = "/doctor/groupsending",method = RequestMethod.POST)
     String groupsending(@RequestBody DoctorGroupSendingEntity doctorGroupSendingEntity);
 
+    @RequestMapping(value = "/doctor/groupsendingall",method = RequestMethod.POST)
+    String groupsendingAll(@RequestBody DoctorGroupSendingEntity doctorGroupSendingEntity);
+
     @RequestMapping(value = "/doctor/groupsendinghistory")
     List<DoctorGroupSendingEntity> groupsendinghistory(@RequestParam("phone")String phone);
 

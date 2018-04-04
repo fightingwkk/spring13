@@ -30,8 +30,6 @@ public class MyPatient {
     @Autowired
     UserDao userDao;
     @Autowired
-    DoctorEntity doctorEntity;
-    @Autowired
     private JwtUtil jwt;
 
     /**
@@ -173,7 +171,7 @@ public class MyPatient {
             }
             list.add(label);
             String LabelStr =  String.join(",",list);
-            System.out.println(LabelStr);
+            DoctorEntity doctorEntity = new DoctorEntity();
             doctorEntity.setPhone(phone);
             doctorEntity.setLabel(LabelStr);
             String state = userDao.updatedoctorInfoDetails(doctorEntity);

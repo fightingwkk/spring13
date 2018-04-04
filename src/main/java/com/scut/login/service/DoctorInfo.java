@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.print.Doc;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
@@ -49,8 +50,6 @@ public class DoctorInfo {
     private JwtUtil jwt;
     @Autowired
     AliyunStorageService aliyunStorageService;
-    @Autowired
-    DoctorEntity doctorEntity;
 
     /**
      * 医生信息查询并返回
@@ -300,6 +299,8 @@ public class DoctorInfo {
             String phone = jobj.get("phone").toString();
 
             //更新医生的详细资料
+
+            DoctorEntity doctorEntity = new DoctorEntity();
             doctorEntity.setPhone(phone);
             doctorEntity.setName(name);
             doctorEntity.setSex(sex);
@@ -686,6 +687,7 @@ public class DoctorInfo {
             JsonResult result = wechatServer.qrCodeCreateLogo(phone);
             if (result.getErrorcode().equals("0")) {
                 JsonResult getQrcode = wechatServer.getdoctorqrcodeurl(phone);
+                DoctorEntity doctorEntity = new DoctorEntity();
                 doctorEntity.setPhone(phone);
                 String qrCode = String.valueOf(getQrcode.getData());
                 doctorEntity.setQRcode_pic(qrCode);

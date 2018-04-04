@@ -237,6 +237,7 @@ public class Index {
         String group_names = map.get("group_names");
         String kind_names = map.get("kinds_names");
         String patient_names = map.get("patient_names");
+        String all_patients = map.get("all_patients");
 
 
         try{
@@ -256,7 +257,12 @@ public class Index {
             doctorGroupSendingEntity.setKind_names(kind_names);
             doctorGroupSendingEntity.setPatient_names(patient_names);
 
-            String state = userDao.groupsending(doctorGroupSendingEntity);
+            String state = "";
+            if(all_patients!= null && all_patients.equals("1")){
+                state = userDao.groupsendingAll(doctorGroupSendingEntity);
+            }else{
+                state = userDao.groupsending(doctorGroupSendingEntity);
+            }
 
             if (state.equals("success")){
                 logger.info(phone + "-groupSending: 群发成功");

@@ -20,8 +20,11 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.Servlet;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * 入口类 博客出处：http://www.cnblogs.com/GoodHelper/
@@ -59,6 +62,14 @@ public class App {
 			multipartResolver.setResolveLazily(false);
 			return multipartResolver;
 		}
+	}
+
+	@PostConstruct
+	void started() {
+		TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
+		Calendar calendar = Calendar.getInstance();
+		System.out.println("目前时间"+calendar.getTime());
+
 	}
 
 	public static void main(String[] args) {
