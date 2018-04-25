@@ -235,7 +235,7 @@ public class Index {
         String token = request.getHeader("Authorization");
         String content =map.get("content");
         String group_names = map.get("group_names");
-        String kind_names = map.get("kinds_names");
+        String kind_names = map.get("kind_names");
         String patient_names = map.get("patient_names");
         String all_patients = map.get("all_patients");
 
